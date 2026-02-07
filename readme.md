@@ -51,14 +51,21 @@ Then you can run the development server:
 uv run honcho start
 ```
 
-### Code orgranization
+With everything running you can access the main web interface on http://localhost:5000 and the Prefect UI on http://localhost:4200.
 
-The code is organized into the following directories:
-- src
-  - app
-  - models
-  - pipelines
+## Linting
 
+Run Ruff across the codebase:
+```bash
+uv run ruff check .
+```
 
+Auto-fix where safe:
+```bash
+uv run ruff check . --fix
+```
 
-##
+Format (if we enable formatting rules later):
+```bash
+uv run ruff format .
+```

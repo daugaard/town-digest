@@ -14,4 +14,13 @@ dependencies = [
 dev = [
     "honcho>=2.0.0",
     "pytest>=9.0.2",
+    "ruff>=0.12.2",
 ]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+ignore = ["E501"]

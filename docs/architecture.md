@@ -50,5 +50,5 @@ The following models are used in the application:
   - An event is a structured piece of information extracted from an email, containing details such as date, time, location, and description. Events are associated with an edition.
 - Announcement
   - An announcement is a general news item extracted from an email, containing unstructured information. Announcements are associated with an edition.
-- Photo
-  - A photo is an image associated with an event or announcement, providing visual context. Photos are associated with either an event or an announcement, but not both.
+- Image
+  - An image is a media file associated with an email, event, or announcement. Images can be used to enhance the visual presentation of news and events.

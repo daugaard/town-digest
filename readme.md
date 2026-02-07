@@ -38,6 +38,8 @@ The main components of this application include:
 - Prefect for data pipeline
 - Flask for web application
   - DaisyUI design system
+- SQLAlchemy for data access
+- Alembic for database migrations
 
 ## Developement Environment
 
@@ -68,4 +70,16 @@ uv run ruff check . --fix
 Format (if we enable formatting rules later):
 ```bash
 uv run ruff format .
+```
+
+## Database Migrations
+
+Create a new migration:
+```bash
+uv run alembic revision --autogenerate -m "describe change"
+```
+
+Apply migrations:
+```bash
+uv run alembic upgrade head
 ```

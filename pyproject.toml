@@ -8,6 +8,7 @@ dependencies = [
     "flask>=3.1.2",
     "prefect>=3.6.16",
     "sqlalchemy>=2.0.46",
+    "alembic>=1.16.2",
 ]
 
 [dependency-groups]

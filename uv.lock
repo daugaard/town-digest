@@ -1707,6 +1707,7 @@ name = "town-digest"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "alembic" },
     { name = "flask" },
     { name = "prefect" },
     { name = "sqlalchemy" },
@@ -1721,6 +1722,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "alembic", specifier = ">=1.16.2" },
     { name = "flask", specifier = ">=3.1.2" },
     { name = "prefect", specifier = ">=3.6.16" },
     { name = "sqlalchemy", specifier = ">=2.0.46" },

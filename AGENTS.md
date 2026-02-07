@@ -48,3 +48,4 @@ Build a calm, chronological civic digest using modern Python and clean-code best
 - Use `ruff` for linting.
 - Run `uv run ruff check .` for CI-safe lint runs.
 - Run `uv run ruff check . --fix` for autofixable lint issues.
+- Use SQLAlchemy for data access and Alembic for migrations.

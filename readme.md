@@ -2,7 +2,7 @@
 
 A calm, chronological civic digest for local communities.  
 
-Civic Digest collects newsletters and announcements from local organizations, extracts **both structured events and general news**, and publishes a chronological news feed and event calendar for each town — **without algorithms, engagement metrics, or social media noise**.
+Town Digest collects newsletters and announcements from local organizations, extracts structured events and general news, and publishes a chronological news feed and event calendar for each town — without algorithms, engagement metrics, or social media noise.
 
 ---
 
@@ -12,10 +12,10 @@ Local information has become fragmented:
 
 - Local newspapers are shrinking or disappearing.
 - Schools, clubs, libraries, and municipalities send updates through separate newsletters.
-- Civic information lives in inboxes, PDFs, and scattered mailing lists.
+- Town information lives in inboxes, PDFs, and scattered mailing lists.
 - Social media amplifies noise and outrage, not community relevance.
 
-Civic Digest provides a **neutral, structured, opt-in infrastructure** for towns to stay informed.
+Town Digest provides a neutral, structured, opt-in infrastructure for towns to stay informed.
 
 ---
 

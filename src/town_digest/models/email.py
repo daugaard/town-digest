@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from enum import Enum
+from enum import StrEnum
 
 from sqlalchemy import DateTime, ForeignKey, String, Text
 from sqlalchemy import Enum as SAEnum
@@ -15,7 +15,7 @@ from town_digest.models.email_alias import EmailAlias
 from town_digest.models.event import Event
 
 
-class EmailStatus(str, Enum):
+class EmailStatus(StrEnum):
     RECEIVED = "received"
     PROCESSED = "processed"
 

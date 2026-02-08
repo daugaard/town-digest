@@ -36,10 +36,7 @@ class Settings:
 def load_settings() -> Settings:
     """Load settings from environment with sane defaults."""
     debug_raw = os.environ.get("DEBUG", "")
-    if debug_raw:
-        debug = debug_raw.strip().lower() in {"1", "true", "yes", "on"}
-    else:
-        debug = True
+    debug = debug_raw.strip().lower() in {"1", "true", "yes", "on"} if debug_raw else True
     return Settings(
         debug=debug,
         secret_key=os.environ.get("SECRET_KEY", DEFAULT_SECRET_KEY),

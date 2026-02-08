@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import date, datetime, time, timezone
+from datetime import UTC, date, datetime, time
 
 from town_digest.models import (
     Announcement,
@@ -19,7 +19,7 @@ def test_models_create_tables_and_relationships(db_session) -> None:
         edition=edition,
         email_alias=alias,
         subject="Town update",
-        received_at=datetime(2025, 1, 1, 12, 0, tzinfo=timezone.utc),
+        received_at=datetime(2025, 1, 1, 12, 0, tzinfo=UTC),
         status=EmailStatus.RECEIVED,
         body_text="Hello",
     )

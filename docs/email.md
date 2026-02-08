@@ -8,5 +8,5 @@ The general workflow works as follows:
 - As emails arrive they are processed and associated with the edition
 
 Our email is set up as follows:
-- IMAP email account with gmx.com
-- Email alias forwarding via namecheap.com
+- IMAP email account with runbox.com
+- Email aliases are + based (e.g. some-email+eastwindsor@run.com)

@@ -21,7 +21,7 @@ class Settings:
     imap_password: str = ""  # Optional, can be set via environment variable
 
 
-def load_settings(app_env: str) -> Settings:
+def load_settings(app_env: str = "") -> Settings:
     """Load settings from environment with sane defaults."""
     app_env = app_env.lower() if app_env else os.environ.get("APP_ENV", "development").lower()
     debug = app_env != "production"

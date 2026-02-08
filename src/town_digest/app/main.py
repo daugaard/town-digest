@@ -7,7 +7,7 @@ from town_digest import config as app_config
 
 def create_app() -> Flask:
     app = Flask(__name__)
-    settings = app_config.load_settings(app_env=os.environ.get("APP_ENV", "development"))
+    settings = app_config.load_settings()
     app.config.from_mapping(
         DEBUG=settings.debug,
         SECRET_KEY=settings.secret_key,

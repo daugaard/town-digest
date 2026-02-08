@@ -32,16 +32,14 @@ On a regular cadence email are processed as follows:
 - Deduplicate and add news to the edition 
 - Archieve email
 
-The web frontend will display the events and news servered per edition. A subdomain indicataes the edition, an edition can have multiple subdomains.  
+The web frontend will display the events and news served per edition. Editions are addressed by state + slug in the URL (e.g., /nj/east-windsor).  
 
 
 # Data model
 
 The following models are used in the application:
 - Edition
-  - An edition represents a specific geographic area (e.g., a town or group of towns) and serves as the main organizational unit for the application. Each edition has a unique name and can have multiple associated subdomains, email aliases, events, and announcements.
-- Subdomain
-  - A subdomain is associated with an edition and serves as the URL for that edition's web frontend. An edition can have multiple subdomains, but each subdomain is associated with only one edition.
+  - An edition represents a specific geographic area (e.g., a town or group of towns) and serves as the main organizational unit for the application. Each edition has a unique name, slug, and state and can have multiple email aliases, events, and announcements.
 - EmailAlias
   - An email alias is an email address associated with an edition. Emails sent to this address are processed and associated with the edition.
 - Email
@@ -50,5 +48,3 @@ The following models are used in the application:
   - An event is a structured piece of information extracted from an email, containing details such as date, time, location, and description. Events are associated with an edition.
 - Announcement
   - An announcement is a general news item extracted from an email, containing unstructured information. Announcements are associated with an edition.
-- Image
-  - An image is a media file associated with an email, event, or announcement. Images can be used to enhance the visual presentation of news and events.

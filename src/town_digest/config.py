@@ -4,7 +4,7 @@ import os
 from dataclasses import dataclass
 
 DEFAULT_SECRET_KEY = "dev-only-change-me"
-DEFAULT_DATABASE_URL = "postgresql://town_digest_user:somepw@localhost/town_digest_dev"
+DEFAULT_DATABASE_URL = "postgresql+psycopg://town_digest_user:somepw@localhost/town_digest_dev"
 DEFAULT_IMAP_SERVER = "mail.runbox.com"
 DEFAULT_IMAP_PORT = 993
 DEFAULT_IMAP_USER = "tdigest"
@@ -18,7 +18,7 @@ class Settings:
     imap_server: str
     imap_port: int
     imap_user: str
-    imap_password: str
+    imap_password: str = ""  # Optional, can be set via environment variable
 
     def to_dict(self) -> dict[str, str | bool | int]:
         """Convert settings to a dictionary for easy use in Flask config."""
@@ -33,10 +33,13 @@ class Settings:
         }
 
 
-def load_settings(app_env: str = "") -> Settings:
+def load_settings() -> Settings:
     """Load settings from environment with sane defaults."""
-    app_env = app_env.lower() if app_env else os.environ.get("APP_ENV", "development").lower()
-    debug = app_env != "production"
+    debug_raw = os.environ.get("DEBUG", "")
+    if debug_raw:
+        debug = debug_raw.strip().lower() in {"1", "true", "yes", "on"}
+    else:
+        debug = True
     return Settings(
         debug=debug,
         secret_key=os.environ.get("SECRET_KEY", DEFAULT_SECRET_KEY),

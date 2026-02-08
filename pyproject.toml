@@ -10,6 +10,7 @@ dependencies = [
     "prefect>=3.6.16",
     "sqlalchemy>=2.0.46",
     "alembic>=1.16.2",
+    "psycopg>=3.2.7",
 ]
 
 [dependency-groups]

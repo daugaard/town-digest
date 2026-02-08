@@ -11,3 +11,4 @@ wheels/
 
 .envrc
 node_modules/
+src/town_digest/app/static/css/app.css

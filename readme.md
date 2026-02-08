@@ -21,12 +21,12 @@ Town Digest provides a neutral, structured, opt-in infrastructure for towns to s
 
 ## Features (MVP)
 
-- Accepts newsletters via **email forwarding** (opt-in).  
+- Accepts newsletters via email forwarding (opt-in).  
 - Extracts:
-  - **Structured events** (date, time, location)  
-  - **General news/announcements**  
-- Publishes **chronological news feed** and **event calendar**.  
-- Links to **original source** for transparency.  
+  - Structured events (date, time, location)  
+  - General news/announcements  
+- Publishes chronological news feed and event calendar.  
+- Links to original source for transparency.  
 - Minimal, calm design with optional small interactivity.
 
 ---
@@ -34,7 +34,7 @@ Town Digest provides a neutral, structured, opt-in infrastructure for towns to s
 ## Architecture
 
 The main components of this application include:
-- IMAP index
+- IMAP inbox for email ingestion
 - Prefect for data pipeline
 - Flask for web application
   - DaisyUI design system

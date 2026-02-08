@@ -18,7 +18,19 @@ class Settings:
     imap_server: str
     imap_port: int
     imap_user: str
-    imap_password: str = ""  # Optional, can be set via environment variable
+    imap_password: str
+
+    def to_dict(self) -> dict[str, str | bool | int]:
+        """Convert settings to a dictionary for easy use in Flask config."""
+        return {
+            "DEBUG": self.debug,
+            "SECRET_KEY": self.secret_key,
+            "DATABASE_URL": self.database_url,
+            "IMAP_SERVER": self.imap_server,
+            "IMAP_PORT": self.imap_port,
+            "IMAP_USER": self.imap_user,
+            "IMAP_PASSWORD": self.imap_password,
+        }
 
 
 def load_settings(app_env: str = "") -> Settings:

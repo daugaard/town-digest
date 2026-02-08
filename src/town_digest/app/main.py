@@ -8,11 +8,7 @@ from town_digest import config as app_config
 def create_app() -> Flask:
     app = Flask(__name__)
     settings = app_config.load_settings()
-    app.config.from_mapping(
-        DEBUG=settings.debug,
-        SECRET_KEY=settings.secret_key,
-        DATABASE_URL=settings.database_url,
-    )
+    app.config.from_mapping(settings.to_dict())
 
     @app.route("/")
     def hello() -> str:

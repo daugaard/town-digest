@@ -2,12 +2,8 @@ from __future__ import annotations
 
 from datetime import date, datetime, time, timezone
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import Session
-
 from town_digest.models import (
     Announcement,
-    Base,
     Edition,
     Email,
     EmailAlias,
@@ -16,10 +12,7 @@ from town_digest.models import (
 )
 
 
-def test_models_create_tables_and_relationships() -> None:
-    engine = create_engine("sqlite+pysqlite:///:memory:")
-    Base.metadata.create_all(engine)
-
+def test_models_create_tables_and_relationships(db_session) -> None:
     edition = Edition(name="East Windsor", slug="east-windsor", state="NJ")
     alias = EmailAlias(address="tdigest+east-windsor@example.com", edition=edition)
     email = Email(
@@ -45,10 +38,9 @@ def test_models_create_tables_and_relationships() -> None:
     email.events.append(event)
     email.announcements.append(announcement)
 
-    with Session(engine) as session:
-        session.add(edition)
-        session.commit()
+    db_session.add(edition)
+    db_session.commit()
 
-        persisted_email = session.query(Email).one()
-        assert persisted_email.events[0].title == "Library Talk"
-        assert persisted_email.announcements[0].title == "Budget Update"
+    persisted_email = db_session.query(Email).one()
+    assert persisted_email.events[0].title == "Library Talk"
+    assert persisted_email.announcements[0].title == "Budget Update"

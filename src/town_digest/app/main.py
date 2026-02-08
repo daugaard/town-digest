@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from flask import Flask
+from flask import Flask, render_template
 
 from town_digest import config as app_config
 
@@ -12,7 +12,7 @@ def create_app() -> Flask:
 
     @app.route("/")
     def hello() -> str:
-        return "Hello, Town Digest!"
+        return render_template("index.html")
 
     return app
 

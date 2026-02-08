@@ -48,6 +48,11 @@ To get started install dependencies:
 uv sync
 ```
 
+Install frontend dependencies:
+```bash
+npm install
+```
+
 Then you can run the development server:
 ```bash
 uv run honcho start

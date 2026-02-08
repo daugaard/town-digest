@@ -1,0 +1,12 @@
+{
+  "name": "town-digest-frontend",
+  "private": true,
+  "devDependencies": {
+    "daisyui": "^4.12.24",
+    "tailwindcss": "^3.4.17"
+  },
+  "scripts": {
+    "css:build": "tailwindcss -i ./src/town_digest/app/static/css/input.css -o ./src/town_digest/app/static/css/app.css",
+    "css:watch": "tailwindcss -i ./src/town_digest/app/static/css/input.css -o ./src/town_digest/app/static/css/app.css --watch"
+  }
+}

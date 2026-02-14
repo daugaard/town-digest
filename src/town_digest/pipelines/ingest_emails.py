@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import prefect
+from prefect.logging import get_run_logger
 
 from town_digest.config import load_settings
 from town_digest.db import get_session_factory
@@ -17,7 +18,7 @@ def fetch_emails() -> list[EmailContent]:
         host=settings.imap_server, username=settings.imap_user, password=settings.imap_password
     ) as client:
         emails = []
-        for email_ref in client.list_unseen():
+        for email_ref in client.list():
             email_content = client.get_content(email_ref.id)
             emails.append(email_content)
     return emails
@@ -45,10 +46,18 @@ def persist_emails(imap_emails: list[EmailContent]) -> list[Email]:
 
     session_factory = get_session_factory()
     with session_factory() as session:
-        session.add_all(emails)
+        # Check if any of the emails have already been persisted to avoid duplicates
+        existing_message_ids = {
+            message_id
+            for (message_id,) in session.query(Email.message_id).filter(
+                Email.message_id.in_([email.message_id for email in emails])
+            )
+        }
+        new_emails = [email for email in emails if email.message_id not in existing_message_ids]
+        session.add_all(new_emails)
         session.commit()
 
-    return emails
+    return new_emails
 
 
 @prefect.task(name="Mark emails as seen")
@@ -65,14 +74,17 @@ def mark_emails_seen(imap_emails: list[EmailContent]) -> None:
 @prefect.flow(name="Ingest Emails")
 def ingest_emails() -> None:
     """Ingest emails from the configured email source."""
+    logger = get_run_logger()
     imap_emails = fetch_emails()
     if not imap_emails:
+        logger.info("No new emails to ingest.")
         return
 
+    logger.info(f"Fetched {len(imap_emails)} new emails to ingest.")
     persisted_emails = persist_emails(imap_emails)
     mark_emails_seen(imap_emails)
     for email in persisted_emails:
-        ingest_email(email)
+        ingest_email(email.id)
 
 
 if __name__ == "__main__":

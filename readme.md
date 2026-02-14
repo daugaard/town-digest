@@ -111,3 +111,17 @@ Example:
 ```bash
 export DATABASE_URL="postgresql+psycopg://town_digest_user:somepw@localhost/town_digest_dev"
 ```
+
+## LLM Extraction Settings
+
+Announcement extraction uses OpenAI via the official Python SDK.
+
+Required:
+```bash
+export OPENAI_API_KEY="your-api-key"
+```
+
+Optional model override:
+```bash
+export OPENAI_MODEL="gpt-4.1-mini"
+```

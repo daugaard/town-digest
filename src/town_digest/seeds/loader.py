@@ -13,7 +13,7 @@ DEV_SEED_DATA: dict[str, tuple[dict[str, str | None | tuple[str, ...]], ...]] = 
             "slug": "east-windsor",
             "state": "NJ",
             "description": "The latest news and events from East Windsor, Hightstown, and the Twin Rivers community in New Jersey.",
-            "aliases": ("tdigest+east-windsor@example.com",),
+            "aliases": ("tdigest+east-windsor@run.box",),
         },
     )
 }

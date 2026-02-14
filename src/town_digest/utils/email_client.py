@@ -105,6 +105,11 @@ class ImapMailClient:
             headers=_headers_dict(message),
         )
 
+    def mark_seen(self, email_id: str, folder: str = "INBOX") -> None:
+        client = self._require_connection()
+        client.select_folder(folder, readonly=False)
+        client.add_flags([int(email_id)], "\\Seen")
+
     def move(self, email_id: str, destination: str) -> None:
         client = self._require_connection()
         client.select_folder(self._default_folder, readonly=False)

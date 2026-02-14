@@ -26,12 +26,13 @@ class Email(TimestampedMixin, Base):
     __tablename__ = "emails"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    edition_id: Mapped[int] = mapped_column(ForeignKey("editions.id"), nullable=False)
-    email_alias_id: Mapped[int] = mapped_column(ForeignKey("email_aliases.id"), nullable=False)
+    edition_id: Mapped[int] = mapped_column(ForeignKey("editions.id"), nullable=True)
+    email_alias_id: Mapped[int] = mapped_column(ForeignKey("email_aliases.id"), nullable=True)
 
     subject: Mapped[str | None] = mapped_column(String(500), nullable=True)
     from_name: Mapped[str | None] = mapped_column(String(200), nullable=True)
     from_email: Mapped[str | None] = mapped_column(String(320), nullable=True)
+    to_emails: Mapped[str | None] = mapped_column(String(1000), nullable=True)
     message_id: Mapped[str | None] = mapped_column(String(500), nullable=True, unique=True)
     received_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     body_text: Mapped[str | None] = mapped_column(Text, nullable=True)

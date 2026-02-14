@@ -88,3 +88,26 @@ Apply migrations:
 ```bash
 uv run alembic upgrade head
 ```
+
+## Development Seed Data
+
+Load baseline development configuration data (create-only; command raises if records already exist):
+```bash
+uv run flask --app src/town_digest/app/main.py seed-dev
+```
+
+Typical reset flow:
+```bash
+uv run alembic upgrade head
+uv run flask --app src/town_digest/app/main.py seed-dev
+```
+
+## Database Connection
+
+Application runtime and Alembic both read the connection string from `DATABASE_URL` via
+`town_digest.config.load_settings()`.
+
+Example:
+```bash
+export DATABASE_URL="postgresql+psycopg://town_digest_user:somepw@localhost/town_digest_dev"
+```

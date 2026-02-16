@@ -57,6 +57,7 @@ def extract_announcements_from_email_text(
                     "DO NOT return newsletter sign-up calls, welcome announcements, event listings, or other non-announcement content. "
                     "Return concise reworded announcements that are suitable for display on a website."
                     "The body MUST be markdown-formatted, the title MUST be plain text."
+                    "All links in the body MUST be converted to markdown format."
                     "Feel free to include links in the body if there are any relevant links in the email text. "
                     "If there are no announcements, return an empty list."
                 ),

@@ -60,10 +60,11 @@ def extract_events_from_email_text(
             {
                 "role": "system",
                 "content": (
-                    "Extract civic events from newsletter text. "
+                    "Extract events from newsletter text. "
                     "Only return events with a clear title and explicit calendar date. "
                     "DO NOT return non-event announcements, subscribe calls, or generic newsletter text. "
                     "The description MUST be markdown-formatted, the title MUST be plain text. "
+                    "DO NOT bold the entire description."
                     "Return start_date as YYYY-MM-DD and start_time as 24-hour HH:MM:SS when known; "
                     "otherwise set start_time to null. "
                     "Include location when explicitly present; otherwise set location to null. "

@@ -1,0 +1,67 @@
+{% extends "base.html" %} {% block content %}
+<div class="mb-8 space-y-2">
+    <div class="badge badge-outline">{{ edition.state }} Edition</div>
+    <h1 class="text-3xl font-semibold tracking-tight">{{ edition.name }}</h1>
+    {% if edition.description %}
+    <p class="text-base-content/70">{{ edition.description }}</p>
+    {% endif %}
+</div>
+
+<div class="grid gap-8 lg:grid-cols-3">
+    <section class="space-y-4 lg:col-span-2">
+        <h2 class="text-xl font-semibold">Announcements</h2>
+        {% if announcements %}
+        <div class="space-y-4">
+            {% for announcement in announcements %}
+            <article
+                class="announcement-item rounded-lg border border-base-300 bg-base-100 p-4 shadow-sm"
+            >
+                <h3 class="text-lg font-medium">{{ announcement.title }}</h3>
+                <p class="text-sm mt-1 text-base-content/70">
+                    {{ announcement.created_at.strftime("%b %d, %Y") }}
+                </p>
+                <div class="mt-2 whitespace-pre-line text-base-content/80">
+                    {{ announcement.body | markdown | safe }}
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-base-content/60">No announcements yet.</p>
+        {% endif %}
+    </section>
+
+    <aside class="space-y-4">
+        <h2 class="text-xl font-semibold">Upcoming Events</h2>
+        {% if events %}
+        <div class="space-y-3">
+            {% for event in events %}
+            <article
+                class="event-item rounded-lg border border-base-300 bg-base-100 p-4 shadow-sm"
+            >
+                <h3 class="font-medium">{{ event.title }}</h3>
+                <p class="mt-1 text-sm text-base-content/70">
+                    {{ event.start_date.strftime("%b %d, %Y") }} {% if
+                    event.start_time %} at {{ event.start_time.strftime("%I:%M
+                    %p").lstrip("0") }} {% endif %}
+                </p>
+                {% if event.location %}
+                <p class="mt-1 text-sm text-base-content/70">
+                    {{ event.location }}
+                </p>
+                {% endif %} {% if event.description %}
+                <div
+                    class="mt-2 whitespace-pre-line text-sm text-base-content/80"
+                >
+                    {{ event.description | markdown | safe }}
+                </div>
+                {% endif %}
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-base-content/60">No upcoming events.</p>
+        {% endif %}
+    </aside>
+</div>
+{% endblock %}

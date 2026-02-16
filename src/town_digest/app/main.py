@@ -24,7 +24,15 @@ def create_app() -> Flask:
 
     @app.route("/")
     def hello() -> str:
-        return render_template("index.html")
+        session_factory = get_session_factory()
+        with session_factory() as session:
+            editions = session.scalars(
+                select(Edition).order_by(
+                    Edition.state.asc(), Edition.name.asc(), Edition.slug.asc()
+                )
+            ).all()
+
+        return render_template("index.html", editions=editions)
 
     @app.route("/<state>/<edition_slug>")
     def edition_digest(state: str, edition_slug: str) -> tuple[str, int] | str:

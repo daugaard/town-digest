@@ -71,3 +71,44 @@ def test_edition_digest_route_renders_limited_announcements_and_future_events(mo
     assert body.count('class="event-item') == 50
     assert "Past Event" not in body
     assert "Future Event 0" in body
+
+
+def test_root_route_lists_editions_with_links(monkeypatch) -> None:
+    engine = create_engine(
+        "sqlite+pysqlite:///:memory:",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+
+    @event.listens_for(engine, "connect")
+    def _set_sqlite_pragma(dbapi_connection: object, _: object) -> None:
+        cursor = dbapi_connection.cursor()
+        cursor.execute("PRAGMA foreign_keys=ON")
+        cursor.close()
+
+    Base.metadata.create_all(engine)
+    session_factory = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
+
+    with Session(engine) as session:
+        session.add_all(
+            [
+                Edition(name="East Windsor", slug="east-windsor", state="NJ"),
+                Edition(name="Jersey City", slug="jersey-city", state="NJ"),
+            ]
+        )
+        session.commit()
+
+    monkeypatch.setattr(main_module, "get_session_factory", lambda: session_factory)
+
+    app = create_app()
+    app.config.update(TESTING=True)
+    client = app.test_client()
+
+    response = client.get("/")
+
+    assert response.status_code == 200
+    body = response.get_data(as_text=True)
+    assert "East Windsor, NJ" in body
+    assert "Jersey City, NJ" in body
+    assert "/nj/east-windsor" in body
+    assert "/nj/jersey-city" in body

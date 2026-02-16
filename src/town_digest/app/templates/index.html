@@ -1,12 +1,27 @@
-{% extends "base.html" %}
-
-{% block content %}
-  <div class="space-y-6">
+{% extends "base.html" %} {% block content %}
+<div class="space-y-6">
     <div class="badge badge-outline">Town Digest</div>
-    <h1 class="text-4xl font-semibold tracking-tight">Calm, chronological civic updates.</h1>
-    <p class="text-lg text-base-content/70">
-      Gather newsletters, extract events and announcements, and publish a clean local feed.
-    </p>
-    <button class="btn btn-primary">Get Started</button>
-  </div>
+    <h1 class="text-4xl font-semibold tracking-tight">
+        Calm, chronological updates about your local area.
+    </h1>
+    {% if editions %}
+    <div class="space-y-3">
+        <h2 class="text-xl font-semibold">Editions</h2>
+        <ul class="space-y-2">
+            {% for edition in editions %}
+            <li>
+                <a
+                    class="link link-primary"
+                    href="{{ url_for('edition_digest', state=edition.state.lower(), edition_slug=edition.slug) }}"
+                >
+                    {{ edition.name }}, {{ edition.state }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+    <p class="text-base-content/60">No editions available yet.</p>
+    {% endif %}
+</div>
 {% endblock %}

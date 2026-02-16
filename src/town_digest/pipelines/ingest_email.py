@@ -7,12 +7,16 @@ from town_digest.models.email import Email
 from town_digest.models.email_alias import EmailAlias
 from town_digest.models.event import Event
 from town_digest.utils.announcement_extractor import extract_announcements_from_email_text
+from town_digest.utils.events_extractor import extract_events_from_email_text
 
 
 @prefect.task(name="Persists models to the database")
 def persist_models(models: list[Announcement | Event]) -> None:
     """Persist parsed announcement and event models."""
-    _ = models
+    session_factory = get_session_factory()
+    with session_factory() as session:
+        session.add_all(models)
+        session.commit()
 
 
 @prefect.task(name="Parse Email")
@@ -23,14 +27,30 @@ def parse_email(email: Email) -> list[Announcement | Event]:
 
     email_text = email.body_html or email.body_text or ""
     announcement_drafts = extract_announcements_from_email_text(email_text)
-    return [
+    announcements = [
         Announcement(
             edition_id=email.edition_id,
             title=draft["title"],
             body=draft["body"],
+            emails=[email],
         )
         for draft in announcement_drafts
     ]
+
+    event_drafts = extract_events_from_email_text(email_text)
+    events = [
+        Event(
+            edition_id=email.edition_id,
+            title=draft["title"],
+            description=draft["description"],
+            start_date=draft["start_date"],
+            start_time=draft["start_time"],
+            emails=[email],
+        )
+        for draft in event_drafts
+    ]
+
+    return announcements + events
 
 
 @prefect.task(name="Assign email to edition via alias")

@@ -4,7 +4,7 @@ import json
 import os
 from typing import Any, TypedDict
 
-from openai import OpenAI
+from town_digest.utils.openai_client import build_openai_client
 
 DEFAULT_OPENAI_MODEL = "gpt-5-mini"
 
@@ -45,7 +45,7 @@ def extract_announcements_from_email_text(
         return []
 
     selected_model = model or os.environ.get("OPENAI_MODEL", DEFAULT_OPENAI_MODEL)
-    llm_client = _build_openai_client()
+    llm_client = build_openai_client()
 
     response = llm_client.responses.create(
         model=selected_model,
@@ -96,10 +96,3 @@ def extract_announcements_from_email_text(
         drafts.append({"title": normalized_title, "body": normalized_body})
 
     return drafts
-
-
-def _build_openai_client() -> OpenAI:
-    api_key = os.environ.get("OPENAI_API_KEY")
-    if not api_key:
-        raise ValueError("OPENAI_API_KEY is required for announcement extraction.")
-    return OpenAI(api_key=api_key)
